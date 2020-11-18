@@ -1,0 +1,63 @@
+﻿@{ // List<Account> accounts = ((List<Account>)ViewBag.Accounts); // forma A
+    List<Account> accounts = ((List<Account>)Model); // forma B 
+}
+<h1>CUENTAS</h1>
+<h4>Monto: S./ @string.Format("{0:N2}", ViewBag.Total) </h4>
+
+<a id="link" onclick="saludar(event)" class="link" href="/account/create">Crear Cuenta</a>
+
+<a class="btn btn-primary float-right" href="/transfer/create">Crear Transferencia</a>
+
+
+@if (TempData["SuccessMessage"] != null)
+{
+<div class="alert alert-danger">
+    @TempData["SuccessMessage"]
+</div>
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Imagen</th>
+            <th>Tipo</th>
+            <th>Nombre</th>
+            <th>Divisa</th>
+            <th>Saldo</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in accounts)
+        {
+<tr>
+    <td>
+        <img src="@item.ImagePath" width="100" alt="Alternate Text" />
+    </td>
+    <td>@item.Type.Name</td>
+    <td>@item.Name</td>
+    <td>@item.Currency</td>
+    <td class="text-right">
+        @if (item.TypeId == 3)
+        {
+@string.Format("{0:N2}", item.Limite)
+                    <br />}
+        S/.@string.Format("{0:N2}", item.Amount)
+    </td>
+    <td>
+        <a href="/Account/edit?id=@item.Id">Editar</a> ||
+        <a href="/Account/delete?id=@item.Id">Eliminar</a> ||
+        <a href="/Transaction/Index?AccountId=@item.Id">Transacciones</a>
+    </td>
+</tr>
+}
+    </tbody>
+</table>
+@section scripts {
+    <script src="~/js/account.js"></script>>
+}
+
+
+

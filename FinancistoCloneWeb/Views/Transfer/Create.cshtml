@@ -1,0 +1,34 @@
+﻿<h1>Realizar Transferencia</h1>
+<div class="row">
+    <div class="col-6 offset-3">
+        <form action="/transfer/create" method="post">
+
+            <div class="form-group">
+                <label>Cuenta de Origen</label>
+                <select name="sourceAccountId" class="form-control">
+                    <option>-- Seleccione una cuenta --</option>
+                    @foreach (var item in ViewBag.Accounts)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Cuenta Destino</label>
+                <select name="destAccountId" class="form-control">
+                    <option>-- Seleccione una cuenta --</option>
+                    @foreach (var item in ViewBag.Accounts)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Monto a Transferir</label>
+                <input type="text" name="ammount" class="form-control" />
+            </div>
+            <button class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+</div>
